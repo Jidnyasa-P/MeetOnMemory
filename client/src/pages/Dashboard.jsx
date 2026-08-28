@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+﻿import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import AppContent from "../context/AppContent";
@@ -25,8 +25,9 @@ import OrganizationBanner from "../components/organization/OrganizationBanner.js
 import PersonalNotesSidebar from "../components/PersonalNotesSidebar.jsx";
 import PendingRsvpBanner from "../components/dashboard/PendingRsvpBanner.jsx";
 import StoryThumbnails from "../components/dashboard/StoryThumbnails.jsx";
+import RecurringActionItems from "../components/dashboard/RecurringActionItems.jsx";
 
-/* ─── Role Badge ──────────────────────────────────────────────────────────── */
+/* â”€â”€â”€ Role Badge â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const ROLE_STYLES = {
   admin:
     "bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 border-violet-200 dark:border-violet-700",
@@ -51,7 +52,7 @@ const ROUTE_MAP = {
   "meeting-series": "/meeting-series",
 };
 
-/* ─── Dashboard ───────────────────────────────────────────────────────────── */
+/* â”€â”€â”€ Dashboard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const Dashboard = () => {
   const { t } = useTranslation();
   const { userData } = useContext(AppContent);
@@ -228,7 +229,7 @@ const Dashboard = () => {
       <div className="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-12 sm:pb-16">
         <PendingRsvpBanner />
         <StoryThumbnails />
-        {/* ── Hero + AI Search — unified panel ── */}
+        {/* â”€â”€ Hero + AI Search â€” unified panel â”€â”€ */}
         <section
           aria-label="Dashboard hero"
           className="relative mb-6 sm:mb-8 fade-in-up stagger-1"
@@ -248,7 +249,7 @@ const Dashboard = () => {
               className="h-1 bg-linear-to-r from-blue-600 via-violet-600 to-indigo-600"
             />
 
-            {/* Branded org header — banner background with readable overlay */}
+            {/* Branded org header â€” banner background with readable overlay */}
             <div className="relative">
               <OrganizationBanner
                 src={organizationBannerUrl}
@@ -297,7 +298,7 @@ const Dashboard = () => {
               </div>
             </div>
 
-            {/* AI Smart Search — integrated CTA */}
+            {/* AI Smart Search â€” integrated CTA */}
             <div className="px-5 pt-7 pb-7 sm:px-8 sm:pt-8 sm:pb-9 lg:px-10">
               <div
                 className="rounded-xl border border-slate-200/80 dark:border-gray-700 bg-slate-50/80 dark:bg-gray-700/50 p-5 sm:p-6"
@@ -347,7 +348,7 @@ const Dashboard = () => {
           </div>
         </section>
 
-        {/* ── Operational Metrics ── */}
+        {/* â”€â”€ Operational Metrics â”€â”€ */}
         <DashboardMetricsWidget />
 
         {organizationId ? (
@@ -356,7 +357,7 @@ const Dashboard = () => {
           </div>
         ) : null}
 
-        {/* ── Feature Cards ── */}
+        {/* â”€â”€ Feature Cards â”€â”€ */}
         <section aria-label="Dashboard features">
           <header className="mb-4 sm:mb-5 fade-in-up stagger-2">
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-gray-500">
@@ -426,7 +427,14 @@ const Dashboard = () => {
           </div>
         </section>
 
-        {/* ── Additional Widgets (Gamification & Notes) ── */}
+        {/* â”€â”€ Recurring Action Items â”€â”€ */}
+        <section
+          aria-label="Recurring Action Items"
+          className="mt-6 sm:mt-8 fade-in-up stagger-3"
+        >
+          <RecurringActionItems />
+        </section>
+        {/* â”€â”€ Additional Widgets (Gamification & Notes) â”€â”€ */}
         <section
           aria-label="Additional Widgets"
           className="mt-6 sm:mt-8 fade-in-up stagger-3 grid grid-cols-1 lg:grid-cols-2 gap-6"

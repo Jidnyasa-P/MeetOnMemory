@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   getRecurringActionItems,
   getRecurringActionItemById,
@@ -7,37 +7,40 @@ import {
   deleteRecurringActionItem,
 } from "../api/recurringActionItemApi";
 
-export const useRecurringActionItems = () => {
-  return useQuery({
-    queryKey: ["recurringActionItems"],
-    queryFn: getRecurringActionItems,
-  });
-};
+export const recurringActionItemsQueryKey = ["recurringActionItems"];
 
-export const useRecurringActionItem = (id) => {
-  return useQuery({
+export const useRecurringActionItems = () =>
+  useQuery({
+    queryKey: recurringActionItemsQueryKey,
+    queryFn: getRecurringActionItems,
+    select: (data) => (Array.isArray(data) ? data : data?.items || []),
+  });
+
+export const useRecurringActionItem = (id) =>
+  useQuery({
     queryKey: ["recurringActionItem", id],
     queryFn: () => getRecurringActionItemById(id),
-    enabled: !!id,
+    enabled: Boolean(id),
   });
-};
 
 export const useCreateRecurringActionItem = () => {
   const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: createRecurringActionItem,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["recurringActionItems"] });
+      queryClient.invalidateQueries({ queryKey: recurringActionItemsQueryKey });
     },
   });
 };
 
 export const useUpdateRecurringActionItem = () => {
   const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: ({ id, data }) => updateRecurringActionItem(id, data),
     onSuccess: (data, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["recurringActionItems"] });
+      queryClient.invalidateQueries({ queryKey: recurringActionItemsQueryKey });
       queryClient.invalidateQueries({
         queryKey: ["recurringActionItem", variables.id],
       });
@@ -47,10 +50,11 @@ export const useUpdateRecurringActionItem = () => {
 
 export const useDeleteRecurringActionItem = () => {
   const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: deleteRecurringActionItem,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["recurringActionItems"] });
+      queryClient.invalidateQueries({ queryKey: recurringActionItemsQueryKey });
     },
   });
 };
